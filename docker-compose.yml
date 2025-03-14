@@ -1,0 +1,19 @@
+version: "3.1"
+
+services:
+  python_app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/python_app.Dockerfile
+    networks:
+      - custom_network
+    ports:
+      - "8080:8501"
+    volumes:
+      - .:/app
+    restart: always
+    tty: true
+
+networks:
+  custom_network:
+    driver: bridge
