@@ -4,3 +4,4 @@ langchain-core
 langchain-huggingface
 langchain_ollama
 langchain_openai
+faiss-cpu
