@@ -1,5 +1,9 @@
-import consts as consts
-import models as models
+import consts
+import models
+import assets_import
+
+import os
+import time
 
 import streamlit as st # Gera a interface para consulta (Pode ser substituida)
 from langchain_core.messages import AIMessage, HumanMessage # Mensagens no stream
@@ -14,9 +18,15 @@ st.title(consts.MESSAGE_TITLE)
 
 vrModelClass = consts.MODEL_CLASS_HF_HUB
 
-# Se não existe histórico de conversa, cria uma nova mensagem com origem na AI
+# Inicializando as variáveis globais
 if ("chat_history" not in st.session_state):
     st.session_state.chat_history = [AIMessage(content=consts.MESSAGE_AI_STARTUP)]
+
+if ("doc_list" not in st.session_state):
+    st.session_state.doc_list = None
+
+if ("retriever" not in st.session_state):
+    st.session_state.retriever = None
 
 # Renderizando as respostas em tela
 for message in st.session_state.chat_history:
@@ -30,6 +40,8 @@ for message in st.session_state.chat_history:
         with st.chat_message("Human"):
             st.write(message.content)
 
+start = time.time()
+
 # Buscando a mensagem digitada pelo usuário
 user_query = st.chat_input(consts.MESSAGE_INPUT_PLACEHOLDER)
 
@@ -41,6 +53,35 @@ if ((user_query is not None) and (user_query != "")):
         st.markdown(user_query)
 
     with st.chat_message("AI"):
-        resp = st.write_stream(models.model_response(user_query, st.session_state.chat_history, vrModelClass))
+        pdf_files = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if f.lower().endswith(".pdf")]
 
-        st.session_state.chat_history.append(AIMessage(content = resp))
+        if (st.session_state.doc_list != pdf_files):
+            st.session_state.doc_list = pdf_files
+            st.session_state.retriever = assets_import.config_retriever_pdf(pdf_files)
+
+        rag_chaing = models.config_rag_chain(vrModelClass, st.session_state.retriever)
+
+        result = rag_chaing.invoke({"input": user_query, "chat_history": st.session_state.chat_history})
+
+        resp = result['answer']
+
+        st.write(resp)
+
+        # Mostra a fonte
+        sources = result['context']
+
+        for idx, doc in enumerate(sources):
+            source = doc.metadata['source']
+            file = os.path.basename(source)
+            page = doc.metadata.get('page', 'Página não especificada')
+
+            ref = f":link: Fonte {idx}: *{file} - p. {page}*"
+
+            with st.popover(ref):
+                st.caption(doc.page_content)
+
+    st.session_state.chat_history.append(AIMessage(content=resp))
+
+end = time.time()
+
+print("Tempo: ", end - start)

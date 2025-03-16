@@ -5,3 +5,5 @@ langchain-huggingface
 langchain_ollama
 langchain_openai
 faiss-cpu
+langchain-text-splitters
+pypdf

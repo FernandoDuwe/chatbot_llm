@@ -8,6 +8,9 @@ MODEL_TYPE_HF     = "meta-llama/Meta-Llama-3-8B-Instruct"
 MODEL_TYPE_OPENAI = "gpt-40-mini"
 MODEL_TYPE_OLLAMA = "phi3"
 
+# Embeddings
+EMBEDDING_BAAI = "BAAI/bge-m3"
+
 # Temperature
 TEMPERATURE_LOW_CREATIVITY = 0.1 # temperatura baixa = baixa criatividade do modelo
 
@@ -25,3 +28,13 @@ MESSAGE_INPUT_PLACEHOLDER = "Digite sua mensagem aqui"
 PROMPT_ASSISTANT_GENERAL = """
         Vocẽ é um assistente prestativo e está respondendo perguntas gerais. Responda em {language}
 """
+PROMPT_QA_TEMPLATE = """Você é um assistente virtual prestativo e está respondendo perguntas gerais.
+Use os seguintes pedaços de contexto recuperado para responder à pergunta.
+Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
+Responda em português. \n\n
+Pergunta: {input} \n
+Contexto: {context}"""
+
+# Directories and files
+DIRECTORY_ASSETS = "./assets/"
+DIRECTORY_VECTORSTORE = "./assets/vectorstore/db_faiss"

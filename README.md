@@ -2,6 +2,10 @@
 
 ## _Modelo IA para treinamento_
 
+## Configuração
+
+Crie um arquivo .env (baseado no arquivo .env.example) e informe a chave de API da Hugging Face
+
 ## Instalação
 
 A aplicação rodará em um container Docker, sendo necessarío o seguinte comando para instalação
@@ -24,9 +28,9 @@ Executando o projeto, usando o StreamLit
 streamlit run ./src/main.py
 ```
 
-## Configuração
+## Lendo arquivos PDFs
 
-Crie um arquivo .env (baseado no arquivo .env.example) e informe a chave de API da Hugging Face
+Para que a IA leia os arquivos PDFs, coloque-os no diretório ./assets/
 
 ## Execução
 
