@@ -44,4 +44,4 @@ python ./src/read_youtube_data.py
 
 ## Execução
 
-Para acessar o chat, acesse a URL: http://localhost:8080/
+Para acessar o chat, acesse a URL: http://localhost:8501/
