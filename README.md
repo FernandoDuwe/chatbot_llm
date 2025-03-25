@@ -32,6 +32,16 @@ streamlit run ./src/main.py
 
 Para que a IA leia os arquivos PDFs, coloque-os no diretório ./assets/
 
+## Lendo transcrições de vídeos do Youtube
+
+Para efetuar a aprendizagem de vídeos no Youtube, o vídeo deve ser transcrito para o formato txt.
+
+Para transcrever os vídeos, adicione os IDs dos vídeos no arquivo ./config/youtube_import_list.json, em seguida, execute o seguinte comando:
+
+```sh
+python ./src/read_youtube_data.py
+```
+
 ## Execução
 
 Para acessar o chat, acesse a URL: http://localhost:8080/

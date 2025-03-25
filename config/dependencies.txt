@@ -7,3 +7,5 @@ langchain_openai
 faiss-cpu
 langchain-text-splitters
 pypdf
+youtube-transcript-api==0.6.3
+yt-dlp

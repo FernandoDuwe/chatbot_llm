@@ -1,6 +1,7 @@
 import consts
 import models
 import assets_import
+import youtube_utils
 
 import os
 import time
@@ -53,11 +54,11 @@ if ((user_query is not None) and (user_query != "")):
         st.markdown(user_query)
 
     with st.chat_message("AI"):
-        pdf_files = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if f.lower().endswith(".pdf")]
+        fileList = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if ((f.lower().endswith(".pdf")) or (f.lower().endswith(".txt"))) ]
 
-        if (st.session_state.doc_list != pdf_files):
-            st.session_state.doc_list = pdf_files
-            st.session_state.retriever = assets_import.config_retriever_pdf(pdf_files)
+        if (st.session_state.doc_list != fileList):
+            st.session_state.doc_list = fileList
+            st.session_state.retriever = assets_import.config_retriever(fileList)
 
         rag_chaing = models.config_rag_chain(vrModelClass, st.session_state.retriever)
 
@@ -70,15 +71,32 @@ if ((user_query is not None) and (user_query != "")):
         # Mostra a fonte
         sources = result['context']
 
+        sources_rendered = []
+
         for idx, doc in enumerate(sources):
-            source = doc.metadata['source']
+            source = doc.metadata['source']          
             file = os.path.basename(source)
-            page = doc.metadata.get('page', 'Página não especificada')
 
-            ref = f":link: Fonte {idx}: *{file} - p. {page}*"
+            # Para não repetir os itens
+            if (file in sources_rendered): continue
 
-            with st.popover(ref):
-                st.caption(doc.page_content)
+            sources_rendered.append(file)
+
+            nome, extensao = os.path.splitext(file)
+
+            if (extensao == ".pdf"):
+                page = doc.metadata.get('page', 'Página não especificada')
+
+                ref = f":link: *{file} - p. {page}*"
+
+                with st.popover(ref):
+                    st.caption(doc.page_content)
+
+            if (extensao == ".txt"):
+                ref = f":link: *{youtube_utils.youtube_get_title(nome)} - Youtube*"
+                
+                with st.popover(ref):
+                    st.video(consts.YOUTUBE_READ_VIDEO + file)
 
     st.session_state.chat_history.append(AIMessage(content=resp))
 
