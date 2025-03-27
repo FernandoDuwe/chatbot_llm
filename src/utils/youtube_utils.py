@@ -1,4 +1,4 @@
-import consts
+import utils.consts as consts
 
 import os
 import io
@@ -11,7 +11,7 @@ def transcript_youtube_video(videoId):
 
     infos = video_loader.load()
 
-    with open(consts.DIRECTORY_ASSETS + videoId + ".txt", "w", encoding="utf-8") as file: 
+    with open(consts.DIRECTORY_ASSETS + videoId + ".ytb", "w", encoding="utf-8") as file: 
         file.write(str(infos))
 
 def youtube_get_title(videoId):

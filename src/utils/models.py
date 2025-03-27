@@ -1,4 +1,4 @@
-import consts
+import utils.consts as consts
 
 from langchain_core.prompts import MessagesPlaceholder
 

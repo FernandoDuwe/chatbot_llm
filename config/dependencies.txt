@@ -10,3 +10,5 @@ pypdf
 youtube-transcript-api==0.6.3
 pytube
 yt-dlp
+docx2txt
+bs4

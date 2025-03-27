@@ -1,6 +1,6 @@
 import json
-import youtube_utils
-import consts
+import utils.youtube_utils as youtube_utils
+import utils.consts as consts
 
 from pytube import Playlist
 

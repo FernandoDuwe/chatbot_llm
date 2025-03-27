@@ -1,7 +1,7 @@
-import consts
-import models
-import assets_import
-import youtube_utils
+import utils.consts as consts
+import utils.models as models
+import utils.assets_import as assets_import
+import utils.youtube_utils as youtube_utils
 
 import os
 import time
@@ -54,11 +54,8 @@ if ((user_query is not None) and (user_query != "")):
         st.markdown(user_query)
 
     with st.chat_message("AI"):
-        fileList = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if ((f.lower().endswith(".pdf")) or (f.lower().endswith(".txt"))) ]
-
-        if (st.session_state.doc_list != fileList):
-            st.session_state.doc_list = fileList
-            st.session_state.retriever = assets_import.config_retriever(fileList)
+        if (st.session_state.retriever is None):
+            st.session_state.retriever = assets_import.config_retriever_from_index_file()
 
         rag_chaing = models.config_rag_chain(vrModelClass, st.session_state.retriever)
 
@@ -84,6 +81,7 @@ if ((user_query is not None) and (user_query != "")):
 
             nome, extensao = os.path.splitext(file)
 
+            # renderizando as respostas
             if (extensao == ".pdf"):
                 page = doc.metadata.get('page', 'Página não especificada')
 
@@ -92,7 +90,15 @@ if ((user_query is not None) and (user_query != "")):
                 with st.popover(ref):
                     st.caption(doc.page_content)
 
-            if (extensao == ".txt"):
+            if (extensao == ".docx"):
+                page = doc.metadata.get('page', 'Página não especificada')
+
+                ref = f":link: *{file} - p. {page}*"
+
+                with st.popover(ref):
+                    st.caption(doc.page_content)
+
+            if (extensao == ".ytb"):
                 ref = f":link: *{youtube_utils.youtube_get_title(nome)} - Youtube*"
                 
                 with st.popover(ref):

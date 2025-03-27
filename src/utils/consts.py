@@ -38,6 +38,7 @@ Contexto: {context}"""
 # Directories and files
 DIRECTORY_ASSETS = "./assets/"
 DIRECTORY_VECTORSTORE = "./assets/vectorstore/db_faiss"
+FAISS_FILE = "./assets/vectorstore/db_faiss"
 
 # Youtube read URL
 YOUTUBE_READ_VIDEO = "https://www.youtube.com/watch?v="

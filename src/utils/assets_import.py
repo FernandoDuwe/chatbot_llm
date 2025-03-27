@@ -1,10 +1,10 @@
 import os
-import consts
+import utils.consts as consts
 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import PyPDFLoader, TextLoader
+from langchain_community.document_loaders import PyPDFLoader, TextLoader, Docx2txtLoader
 
 # Esta função lerá os arquivos de um diretório e salvará em um formato que possa ser lido pela IA
 def config_retriever(doc_list):
@@ -19,8 +19,14 @@ def config_retriever(doc_list):
         if (extensao == ".pdf"):
             loader = PyPDFLoader(file_path)
 
-        if (extensao == ".txt"):
+        if (extensao == ".ytb"):
             loader = TextLoader(file_path)
+
+        if (extensao == ".wbt"):
+            loader = TextLoader(file_path)
+
+        if (extensao == ".docx"):
+            loader = Docx2txtLoader(file_path)
 
         print(" lendo o arquivo ", file_path)
 
@@ -49,5 +55,14 @@ def config_retriever(doc_list):
     retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
 
     print ("    retriever feito")
+
+    return retriever
+
+def config_retriever_from_index_file():
+    embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
+
+    vectorstore = FAISS.load_local(consts.FAISS_FILE, embeddings,allow_dangerous_deserialization=True)
+
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
 
     return retriever
