@@ -12,3 +12,9 @@ pytube
 yt-dlp
 docx2txt
 bs4
+SpeechRecognition
+moviepy
+pydub
+ffmpeg
+ffprobe
+whisper

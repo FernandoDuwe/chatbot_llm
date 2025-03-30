@@ -42,6 +42,16 @@ Execute o arquivo abaixo para efetuar a leitura das páginas
 python ./src/transcript_webpage_data.py
 ```
 
+## Lendo arquivos mp4
+
+Para que a IA leia as suas páginas WEB, adicione os arquivos na pasta ./temp.
+
+Execute o arquivo abaixo para efetuar a leitura das páginas
+
+```sh
+python ./src/transcript_mp4_data.py
+```
+
 ## Efetuando o treinamento da IA
 
 Devido a questões de performance, separamos a fase de treinamento da fase de execução, para efetuar o treinamento,execute o seguinte comando:
@@ -65,3 +75,11 @@ streamlit run ./src/main.py
 ```
 
 Para acessar o chat, acesse a URL: http://localhost:8501/
+
+## Extensões utilizadas
+
+Extensões geradas pela ferramenta durante a fase transcrição
+
+- .ytb - Vídeos transcritos do Youtube
+- .wbt - Páginas web transcritas
+- .mp4t - Vídeos mp4 transcritos

@@ -8,6 +8,8 @@ MODEL_TYPE_HF     = "meta-llama/Meta-Llama-3-8B-Instruct"
 MODEL_TYPE_OPENAI = "gpt-40-mini"
 MODEL_TYPE_OLLAMA = "phi3"
 
+MODEL_TYPE_HF_JURIDICO = "DIACDE/NER_identificacao_termos_juridicos_complexos_TJGO"
+
 # Embeddings
 EMBEDDING_BAAI = "BAAI/bge-m3"
 
@@ -28,7 +30,7 @@ MESSAGE_INPUT_PLACEHOLDER = "Digite sua mensagem aqui"
 PROMPT_ASSISTANT_GENERAL = """
         Vocẽ é um assistente prestativo e está respondendo perguntas gerais. Responda em {language}
 """
-PROMPT_QA_TEMPLATE = """Você é um assistente virtual prestativo e está respondendo perguntas gerais.
+PROMPT_QA_TEMPLATE = """Você é um assistente virtual prestativo e está respondendo perguntas relacionadas a um aplicativo jurídico.
 Use os seguintes pedaços de contexto recuperado para responder à pergunta.
 Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
 Responda em português. \n\n
@@ -37,6 +39,7 @@ Contexto: {context}"""
 
 # Directories and files
 DIRECTORY_ASSETS = "./assets/"
+DIRECTORY_TEMP = "./temp/"
 DIRECTORY_VECTORSTORE = "./assets/vectorstore/db_faiss"
 FAISS_FILE = "./assets/vectorstore/db_faiss"
 

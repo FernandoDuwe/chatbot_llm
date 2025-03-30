@@ -28,6 +28,9 @@ def config_retriever(doc_list):
         if (extensao == ".docx"):
             loader = Docx2txtLoader(file_path)
 
+        if (extensao == ".mp4t"):
+            loader = TextLoader(file_path)
+
         print(" lendo o arquivo ", file_path)
 
         docs.extend(loader.load())
@@ -52,7 +55,7 @@ def config_retriever(doc_list):
     print ("    configurando o retriever")
 
     # Configuração do retriever
-    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
 
     print ("    retriever feito")
 
@@ -63,6 +66,6 @@ def config_retriever_from_index_file():
 
     vectorstore = FAISS.load_local(consts.FAISS_FILE, embeddings,allow_dangerous_deserialization=True)
 
-    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
 
     return retriever

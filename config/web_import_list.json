@@ -1,3 +1,32 @@
 {
-    "pages": []
+    "pages": [
+        "https://www.benner.com.br/tecnologia/2023/03/conheca-o-be-tech/",
+        "https://www.benner.com.br/tecnologia/2023/04/scripts-de-interface-scriptui/",
+        "https://www.benner.com.br/tecnologia/2023/04/injecao-de-dependencia/",
+        "https://www.benner.com.br/tecnologia/2023/04/voce-sabe-o-que-sao-caches/",
+        "https://www.benner.com.br/tecnologia/2023/05/o-poder-dos-testes/",
+        "https://www.benner.com.br/tecnologia/2023/05/instrumentacao-no-wes/",
+        "https://www.benner.com.br/tecnologia/2023/05/bef-componentes-de-negocio/",
+        "https://www.benner.com.br/tecnologia/2023/05/bef-net-core/",
+        "https://www.benner.com.br/tecnologia/2023/05/boa-benner-open-api/",
+        "https://www.benner.com.br/tecnologia/2023/06/processamento-assincrono-btl-worker/",
+        "https://www.benner.com.br/tecnologia/2023/06/autenticacao-no-wes/",
+        "https://www.benner.com.br/tecnologia/2023/06/postman-dicas-e-recursos/",
+        "https://www.benner.com.br/tecnologia/2023/07/design-system-ux/",
+        "https://www.benner.com.br/tecnologia/2023/07/roteiro-para-analise-de-performance/",
+        "https://www.benner.com.br/tecnologia/2023/07/funcionamento-configuracao-do-jenkins/",
+        "https://www.benner.com.br/tecnologia/2023/07/carregamento-assincrono-de-bibliotecas-javascript/",
+        "https://www.benner.com.br/tecnologia/2023/08/injecao-de-dependencia-na-pratica/",
+        "https://www.benner.com.br/tecnologia/2023/08/como-funcionam-os-artefatos-no-builder-e-no-wes/",
+        "https://www.benner.com.br/tecnologia/2023/08/desmistificando-o-azure-devops/",
+        "https://www.benner.com.br/tecnologia/2023/09/selenium-e-api-de-testes-de-interface/",
+        "https://www.benner.com.br/tecnologia/2023/09/como-funciona-o-integrator/",
+        "https://www.benner.com.br/tecnologia/2023/09/wes-autorizacao-por-papeis/",
+        "https://www.benner.com.br/tecnologia/2023/10/wsl-e-docker/",
+        "https://www.benner.com.br/tecnologia/2023/10/funcionamento-do-aol-detalhado/",
+        "https://www.benner.com.br/tecnologia/2023/10/azure-devops-na-pratica/",
+        "https://www.benner.com.br/tecnologia/2023/10/git-mao-na-massa/",
+        "https://www.benner.com.br/tecnologia/2023/11/flutter/",
+        "https://www.benner.com.br/tecnologia/2023/12/scrum/"
+    ]
 }
