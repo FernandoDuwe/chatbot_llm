@@ -15,7 +15,7 @@ from langchain_community.llms import HuggingFaceHub
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
-def model_hf_hub(model = consts.MODEL_TYPE_HF_JURIDICO, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
+def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
     llm = HuggingFaceHub(repo_id = model, 
                          model_kwargs={
                                         "temperature": temperature,
