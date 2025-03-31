@@ -69,7 +69,7 @@ def model_response(user_query, chat_history, model_class):
 
 
 
-def config_rag_chain(model_class, retriever):
+def config_rag_chain(model_class, retriever, profile):
 
     # Carregamento da LLM configurada
     if (model_class == consts.MODEL_CLASS_HF_HUB): llm = model_hf_hub()
@@ -96,7 +96,10 @@ def config_rag_chain(model_class, retriever):
     # Chain para contextualização
     histore_aware_retriever = create_history_aware_retriever(llm=llm, retriever = retriever, prompt = context_q_prompt)
 
-    qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE + token_e)
+    if (profile == consts.PROFILE_DEVELOPER):
+        qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_DEV + token_e)
+    else:
+        qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_SPC + token_e)        
 
     qa_chain = create_stuff_documents_chain(llm, qa_prompt)
 

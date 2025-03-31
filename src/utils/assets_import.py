@@ -7,7 +7,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, Docx2txtLoader
 
 # Esta função lerá os arquivos de um diretório e salvará em um formato que possa ser lido pela IA
-def config_retriever(doc_list):
+def config_retriever(doc_list, profile):
     docs = []
 
     # lendo os documentos e carregando
@@ -50,7 +50,10 @@ def config_retriever(doc_list):
 
     # Armazenamento
     vectorstore = FAISS.from_documents(splits, embeddings)
-    vectorstore.save_local(consts.DIRECTORY_VECTORSTORE)
+
+    if (profile == consts.PROFILE_DEVELOPER): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_DEV)
+
+    if (profile == consts.PROFILE_DEVELOPER): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_SPC)
 
     print ("    configurando o retriever")
 
@@ -61,10 +64,13 @@ def config_retriever(doc_list):
 
     return retriever
 
-def config_retriever_from_index_file():
+def config_retriever_from_index_file(profile):
     embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
 
-    vectorstore = FAISS.load_local(consts.FAISS_FILE, embeddings,allow_dangerous_deserialization=True)
+    if (profile == consts.PROFILE_DEVELOPER):
+        vectorstore = FAISS.load_local(consts.FAISS_FILE_DEV, embeddings,allow_dangerous_deserialization=True)
+    else:
+        vectorstore = FAISS.load_local(consts.FAISS_FILE_SPC, embeddings,allow_dangerous_deserialization=True)
 
     retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
 
