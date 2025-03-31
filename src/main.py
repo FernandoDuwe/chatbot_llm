@@ -30,7 +30,7 @@ with col1:
         st.session_state.selected_profile = consts.PROFILE_DEVELOPER
 
 with col2:
-    if st.button("Especialista jurídicoPerfil"):
+    if st.button("Especialista jurídico"):
         st.session_state.selected_profile = consts.PROFILE_SPECIALIST
 
 # Verifica se o perfil foi selecionado

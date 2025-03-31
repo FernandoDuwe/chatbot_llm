@@ -53,7 +53,7 @@ def config_retriever(doc_list, profile):
 
     if (profile == consts.PROFILE_DEVELOPER): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_DEV)
 
-    if (profile == consts.PROFILE_DEVELOPER): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_SPC)
+    if (profile == consts.PROFILE_SPECIALIST): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_SPC)
 
     print ("    configurando o retriever")
 
