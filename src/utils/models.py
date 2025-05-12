@@ -1,3 +1,4 @@
+import os
 import utils.consts as consts
 
 from langchain_core.prompts import MessagesPlaceholder
@@ -10,18 +11,23 @@ from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 
 import torch
 from langchain_huggingface import ChatHuggingFace
-from langchain_community.llms import HuggingFaceHub
+from langchain_huggingface import HuggingFaceEndpoint
 
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
 def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    llm = HuggingFaceHub(repo_id = model, 
-                         model_kwargs={
-                                        "temperature": temperature,
-                                        "return_full_text": False,
-                                        "max_new_tokens": 512
-                                        })
+    huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")  # Busca o token do .env
+    if not huggingfacehub_api_token:
+        raise ValueError("O token HUGGINGFACEHUB_API_TOKEN não foi encontrado no ambiente.")
+
+
+    llm = HuggingFaceEndpoint(repo_id = model,
+                              temperature = temperature,
+                              return_full_text = False,
+                              max_new_tokens = 1024,
+                              huggingfacehub_api_token=huggingfacehub_api_token
+                              )
     
     return llm
 

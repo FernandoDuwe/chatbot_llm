@@ -8,7 +8,7 @@ MODEL_CLASS_OPEN_AI = 1
 MODEL_CLASS_OLLAMA  = 2
 
 # Models
-MODEL_TYPE_HF     = "meta-llama/Meta-Llama-3-8B-Instruct"
+MODEL_TYPE_HF     = "microsoft/phi-4"  #"meta-llama/Meta-Llama-3-8B-Instruct"
 MODEL_TYPE_OPENAI = "gpt-40-mini"
 MODEL_TYPE_OLLAMA = "phi3"
 
