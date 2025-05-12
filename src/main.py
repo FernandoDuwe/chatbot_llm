@@ -2,6 +2,7 @@ import utils.consts as consts
 import utils.models as models
 import utils.assets_import as assets_import
 import utils.youtube_utils as youtube_utils
+import utils.profiles as profiles
 
 import os
 import time
@@ -25,13 +26,18 @@ st.subheader("Com qual especialista você deseja conversar?:")
 
 col1, col2 = st.columns(2)
 
-with col1:
-    if st.button("Desenvolvedor"):
-        st.session_state.selected_profile = consts.PROFILE_DEVELOPER
+profileList = profiles.get_profiles()
 
-with col2:
-    if st.button("Especialista jurídico"):
-        st.session_state.selected_profile = consts.PROFILE_SPECIALIST
+for idx, option in enumerate(profileList):
+    if idx % 2 == 0:  # Alternar entre col1 e col2
+        with col1:
+            if st.button(option["name"]):  # Exibe o botão com o rótulo do JSON
+                st.session_state.selected_profile = idx
+    else:
+        with col2:
+            if st.button(option["name"]):  # Exibe o botão com o rótulo do JSON
+                st.session_state.selected_profile = idx
+
 
 # Verifica se o perfil foi selecionado
 if st.session_state.selected_profile is None:
@@ -40,21 +46,13 @@ if st.session_state.selected_profile is None:
 
 # Exibe o perfil selecionado
 
-if (st.session_state.selected_profile == consts.PROFILE_DEVELOPER):
-    st.success(f"Especialista selecionado: Desenvolvedor")
-
-if (st.session_state.selected_profile == consts.PROFILE_SPECIALIST):
-    st.success(f"Especialista selecionado: Especialista jurídico")
+st.success(f"Especialista selecionado: " + profiles.get_profile_by_index(st.session_state.selected_profile)["name"])
 
 vrModelClass = consts.MODEL_CLASS_HF_HUB
 
 # Inicializando as variáveis globais
 if ("chat_history" not in st.session_state):
-    if (st.session_state.selected_profile == consts.PROFILE_DEVELOPER):
-        st.session_state.chat_history = [AIMessage(content=consts.MESSAGE_AI_STARTUP_DEVELOPER)]
-
-    if (st.session_state.selected_profile == consts.PROFILE_SPECIALIST):
-        st.session_state.chat_history = [AIMessage(content=consts.MESSAGE_AI_STARTUP_JURIDICO)]
+    st.session_state.chat_history = [AIMessage(content=profiles.get_profile_by_index(st.session_state.selected_profile)["startup_message"])]
 
 if ("doc_list" not in st.session_state):
     st.session_state.doc_list = None

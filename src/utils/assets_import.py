@@ -1,5 +1,6 @@
 import os
 import utils.consts as consts
+import utils.profiles as profiles
 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -51,9 +52,11 @@ def config_retriever(doc_list, profile):
     # Armazenamento
     vectorstore = FAISS.from_documents(splits, embeddings)
 
-    if (profile == consts.PROFILE_DEVELOPER): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_DEV)
+    file_store = profiles.get_profile_by_index(profile)["faiss_db"]
 
-    if (profile == consts.PROFILE_SPECIALIST): vectorstore.save_local(consts.DIRECTORY_VECTORSTORE_SPC)
+    print(" arquivo: " + file_store)
+
+    vectorstore.save_local(file_store, embeddings)
 
     print ("    configurando o retriever")
 
@@ -67,10 +70,9 @@ def config_retriever(doc_list, profile):
 def config_retriever_from_index_file(profile):
     embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
 
-    if (profile == consts.PROFILE_DEVELOPER):
-        vectorstore = FAISS.load_local(consts.FAISS_FILE_DEV, embeddings,allow_dangerous_deserialization=True)
-    else:
-        vectorstore = FAISS.load_local(consts.FAISS_FILE_SPC, embeddings,allow_dangerous_deserialization=True)
+    file_store = profiles.get_profile_by_index(profile)["faiss_db"]
+
+    vectorstore = FAISS.load_local(file_store, embeddings,allow_dangerous_deserialization=True)
 
     retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
 

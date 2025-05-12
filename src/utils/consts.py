@@ -68,6 +68,8 @@ FAISS_FILE = "./assets/vectorstore/db_faiss"
 FAISS_FILE_DEV = "./assets/vectorstore_dev/db_faiss"
 FAISS_FILE_SPC = "./assets/vectorstore_spc/db_faiss"
 
+PROFILE_CONFIG = "./config/profiles.json"
+
 # Youtube read URL
 YOUTUBE_READ_VIDEO = "https://www.youtube.com/watch?v="
 YOUTUBE_READ_PLAYLIST = "https://www.youtube.com/watch?list="

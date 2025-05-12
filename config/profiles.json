@@ -1,0 +1,80 @@
+{
+    "profiles": [
+        {
+            "name": "Consultivo Smart",
+            "specific": true,
+            "prompt": "",
+            "startup_message": "Olá, sou o seu assistente virtual jurídico. Como posso lhe ajudar?",
+            "faiss_db": "./assets/vectorstore_cs/db_faiss",
+            "files": [
+                "01 - CSmart - V11.docx",
+                "01 Consultivo Smart V08 e 09.docx",
+                "2 Menu lateral esquerdo - V11.docx",
+                "2 Atalhos - Parametrizações - Jurídico V11.docx",
+                "1 Apresentação Sistema V11.docx"
+            ],
+            "extensions": [".pdf", ".docx", ".mp4t"]
+        },
+        {
+            "name": "eSocial",
+            "specific": true,
+            "prompt": "",
+            "startup_message": "Olá, sou o seu assistente virtual jurídico. Como posso lhe ajudar?",
+            "faiss_db": "./assets/vectorstore_eSocial/db_faiss",
+            "files": [
+                "1 eSocial V8 - V11.docx",
+                "2 eSocial Trabalhista V8 - V11.docx",
+                "3 Solicitação de Procuração eSocial (e-CAC) V8 - V11.docx",
+                "2 Menu lateral esquerdo - V11.docx",
+                "2 Atalhos - Parametrizações - Jurídico V11.docx",
+                "1 Apresentação Sistema V11.docx"
+            ],
+            "extensions": [".pdf", ".docx", ".mp4t"]
+        },
+        {
+            "name": "Contencioso",
+            "specific": true,
+            "prompt": "",
+            "startup_message": "Olá, sou o seu assistente virtual jurídico. Como posso lhe ajudar?",
+            "faiss_db": "./assets/vectorstore_cont/db_faiss",
+            "files": [
+                "1 - Captura  - Publicações Online V11.docx",
+                "2 - Captura - Novos Processos (Distribuições) V09 - V11.docx",
+                "2 Jurídico x ERP V9 - V11.docx",
+                "Gestão de Audiências V8 a V11.docx",
+                "06 Cadastro de pessoas.mp4t",
+                "2 Atalhos - Parametrizações - Jurídico V11.docx",
+                "Entrada de Pasta V9 a V11.docx",
+                "Acordos extrajudiciais V9 a V11.docx",
+                "5 Testemunhas V08 - V11.docx",
+                "04 - Procurações V11.docx",
+                "05 Conceito pessoas.mp4t",
+                "3 - Captura  - Movimentações Processuais (Andamentos) V09 - V11.docx",
+                "Cálculo Trabalhista V09 a V11.docx",
+                "3 Menu Pastas - V11.docx",
+                "2 Menu lateral esquerdo - V11.docx",
+                "2 Atalhos - Parametrizações - Jurídico V11.docx",
+                "1 Apresentação Sistema V11.docx"
+            ],
+            "extensions": [".pdf", ".docx", ".mp4t"]
+        },
+        {
+            "name": "Especialista jurídico",
+            "specific": false,
+            "prompt": "",
+            "startup_message": "Olá, sou o seu assistente virtual jurídico. Como posso lhe ajudar?",
+            "faiss_db": "./assets/vectorstore_jur/db_faiss",
+            "files": [],
+            "extensions": [".pdf", ".docx", ".mp4t"]
+        },
+        {
+            "name": "Desenvolvedor",
+            "specific": false,
+            "prompt": "",
+            "startup_message": "Olá, sou o seu assistente virtual desenvolvedor. Como posso lhe ajudar?",
+            "faiss_db": "./assets/vectorstore_dev/db_faiss",
+            "files": [],
+            "extensions": [".ytb", ".wbt"]
+        }
+    ]
+}

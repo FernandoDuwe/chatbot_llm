@@ -102,10 +102,7 @@ def config_rag_chain(model_class, retriever, profile):
     # Chain para contextualização
     histore_aware_retriever = create_history_aware_retriever(llm=llm, retriever = retriever, prompt = context_q_prompt)
 
-    if (profile == consts.PROFILE_DEVELOPER):
-        qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_DEV + token_e)
-    else:
-        qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_SPC + token_e)        
+    qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_SPC + token_e)        
 
     qa_chain = create_stuff_documents_chain(llm, qa_prompt)
 

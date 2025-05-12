@@ -1,10 +1,34 @@
 import os
 import utils.consts as consts
 import utils.assets_import as imports
+import utils.profiles as profiles
 
-fileListSpc = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if ((f.lower().endswith(".pdf")) or (f.lower().endswith(".docx")) or (f.lower().endswith(".mp4t"))) ]
-fileListDev = [f for f in os.listdir(consts.DIRECTORY_ASSETS) if ((f.lower().endswith(".ytb")) or (f.lower().endswith(".wbt")) ) ]
+profileList = profiles.get_profiles()
 
-imports.config_retriever(fileListSpc, consts.PROFILE_SPECIALIST)
+for idx, option in enumerate(profileList):
+    
+    fileList = os.listdir(consts.DIRECTORY_ASSETS)
 
-imports.config_retriever(fileListDev, consts.PROFILE_DEVELOPER)
+    fileToRead = []
+
+    for row in fileList:
+        nome, extensao = os.path.splitext(row)
+
+        if (extensao not in option["extensions"]): continue
+
+        # Se existem arquivos específicos para listar
+        if (len(option["files"]) > 0):
+            if (row not in option["files"]): continue
+
+        file_path = os.path.join(consts.DIRECTORY_ASSETS, row)
+
+        if (not os.path.exists(file_path)):
+            print("     n encontrado: " + file_path);
+            continue
+
+        fileToRead.append(row)
+
+    print(idx)
+
+    if (len(fileToRead) > 0):
+        imports.config_retriever(fileToRead, idx)
