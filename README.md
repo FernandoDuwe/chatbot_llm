@@ -60,6 +60,14 @@ Devido a questões de performance, separamos a fase de treinamento da fase de ex
 python ./src/training.py
 ```
 
+## Ollama - Baixando o modelo correspondente
+
+O modelo Ollama rodará localmente, para isso, o modelo deve ser baixado no container:
+
+```sh
+docker exec -it ollama ollama pull phi3
+```
+
 ## Execução
 
 Entrando no container

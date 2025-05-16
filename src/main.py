@@ -48,7 +48,7 @@ if st.session_state.selected_profile is None:
 
 st.success(f"Especialista selecionado: " + profiles.get_profile_by_index(st.session_state.selected_profile)["name"])
 
-vrModelClass = consts.MODEL_CLASS_HF_HUB
+vrModelClass = consts.MODEL_CLASS_OLLAMA
 
 # Inicializando as variáveis globais
 if ("chat_history" not in st.session_state):

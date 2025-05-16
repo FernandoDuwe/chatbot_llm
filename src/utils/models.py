@@ -37,7 +37,7 @@ def model_openai(model = consts.MODEL_TYPE_OPENAI, temperature = consts.TEMPERAT
     return llm
 
 def model_ollama(model = consts.MODEL_TYPE_OLLAMA, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    llm  = ChatOllama(model = model, temperature = temperature)
+    llm  = ChatOllama(model = model, temperature = temperature, base_url = "http://ollama:11434")
 
     return llm
 
@@ -102,7 +102,7 @@ def config_rag_chain(model_class, retriever, profile):
     # Chain para contextualização
     histore_aware_retriever = create_history_aware_retriever(llm=llm, retriever = retriever, prompt = context_q_prompt)
 
-    qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_SPC + token_e)        
+    qa_prompt = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE + token_e)        
 
     qa_chain = create_stuff_documents_chain(llm, qa_prompt)
 

@@ -74,6 +74,6 @@ def config_retriever_from_index_file(profile):
 
     vectorstore = FAISS.load_local(file_store, embeddings,allow_dangerous_deserialization=True)
 
-    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
 
     return retriever
