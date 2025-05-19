@@ -11,6 +11,14 @@ services:
     restart: unless-stopped
     networks:
       - custom_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
 
   python_app:
     build:
