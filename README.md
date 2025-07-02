@@ -65,7 +65,7 @@ python ./src/training.py
 O modelo Ollama rodará localmente, para isso, o modelo deve ser baixado no container:
 
 ```sh
-docker exec -it ollama ollama pull llama3.2:1b
+docker exec -it ollama ollama pull llama3:8b
 ```
 
 ## Execução

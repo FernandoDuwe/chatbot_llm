@@ -10,7 +10,7 @@ MODEL_CLASS_OLLAMA  = 2
 # Models
 MODEL_TYPE_HF     = "microsoft/phi-4"  #"meta-llama/Meta-Llama-3-8B-Instruct"
 MODEL_TYPE_OPENAI = "gpt-40-mini"
-MODEL_TYPE_OLLAMA = "llama3.2:1b"
+MODEL_TYPE_OLLAMA = "llama3:8b"
 
 MODEL_TYPE_HF_JURIDICO = "DIACDE/NER_identificacao_termos_juridicos_complexos_TJGO"
 
@@ -52,6 +52,13 @@ Pergunta: {input} \n
 Contexto: {context}"""
 
 PROMPT_QA_TEMPLATE_SPC = """Você é um assistente virtual prestativo e está respondendo perguntas jurídicas.
+Use os seguintes pedaços de contexto recuperado para responder à pergunta.
+Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
+Responda em português. \n\n
+Pergunta: {input} \n
+Contexto: {context}"""
+
+PROMPT_QA_TEMPLATE_MLT = """Você é um assistente virtual prestativo e está respondendo perguntas sobre um sistema jurídico ou perguntas relacionadas a programação.
 Use os seguintes pedaços de contexto recuperado para responder à pergunta.
 Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
 Responda em português. \n\n

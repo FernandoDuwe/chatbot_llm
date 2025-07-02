@@ -18,3 +18,5 @@ pydub
 ffmpeg
 ffprobe
 whisper
+torch
+sentence-transformers
