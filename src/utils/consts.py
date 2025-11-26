@@ -21,7 +21,7 @@ EMBEDDING_BAAI = "BAAI/bge-m3"
 TEMPERATURE_LOW_CREATIVITY = 0.1 # temperatura baixa = baixa criatividade do modelo
 
 # Language
-LANGUAGE_PT_BR = "português"
+LANGUAGE_PT_BR = "Português do Brasil"
 
 # Messages
 MESSAGE_PAGE_TITLE        = "Seu assistente virtual"
@@ -33,34 +33,34 @@ MESSAGE_AI_STARTUP_DEVELOPER = "Olá, sou o seu desenvolvedor virtual. Como poss
 MESSAGE_INPUT_PLACEHOLDER = "Digite sua mensagem aqui"
 
 # Prompts
-PROMPT_ASSISTANT_GENERAL = """
-        Vocẽ é um assistente prestativo e está respondendo perguntas gerais. Responda em {language}
-"""
+PROMPT_ASSISTANT_GENERAL = """Você é um assistente prestativo. Responda a todas as perguntas de forma concisa e precisa."""
 
 PROMPT_QA_TEMPLATE = """Você é um assistente virtual prestativo e está respondendo perguntas gerais.
 Use os seguintes pedaços de contexto recuperado para responder à pergunta.
-Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
+Se o contexto não contiver a resposta, responda com base no seu conhecimento geral de forma sucinta; se ainda assim não souber, admita que não sabe. Mantenha a resposta concisa.
 Responda em português. \n\n
 Pergunta: {input} \n
 Contexto: {context}"""
 
 PROMPT_QA_TEMPLATE_DEV = """Você é um assistente virtual prestativo e está respondendo perguntas relacionadas a desenvolvimento de software.
 Use os seguintes pedaços de contexto recuperado para responder à pergunta.
-Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
+Se o contexto não contiver a resposta, responda com base no seu conhecimento geral de desenvolvimento de software de forma sucinta; se ainda assim não souber, admita que não sabe. Mantenha a resposta concisa.
 Responda em português. \n\n
 Pergunta: {input} \n
 Contexto: {context}"""
 
-PROMPT_QA_TEMPLATE_SPC = """Você é um assistente virtual prestativo e está respondendo perguntas jurídicas.
-Use os seguintes pedaços de contexto recuperado para responder à pergunta.
-Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
-Responda em português. \n\n
-Pergunta: {input} \n
-Contexto: {context}"""
+PROMPT_QA_TEMPLATE_SPC = """Você é um assistente de recuperação de informações. Use os seguintes pedaços de contexto recuperado para responder à pergunta.
+    Se o contexto não contiver a resposta, responda com base no seu conhecimento geral de forma sucinta; se ainda assim não souber, admita que não sabe. Mantenha a resposta concisa.
+
+    Contexto: {context}
+
+    Pergunta: {question}
+
+    Resposta concisa em português:"""
 
 PROMPT_QA_TEMPLATE_MLT = """Você é um assistente virtual prestativo e está respondendo perguntas sobre um sistema jurídico ou perguntas relacionadas a programação.
 Use os seguintes pedaços de contexto recuperado para responder à pergunta.
-Se você não sabe a resposta, apenas diga que não sabe. Mantenha a resposta concisa.
+Se o contexto não contiver a resposta, responda com base no seu conhecimento geral de forma sucinta; se ainda assim não souber, admita que não sabe. Mantenha a resposta concisa.
 Responda em português. \n\n
 Pergunta: {input} \n
 Contexto: {context}"""

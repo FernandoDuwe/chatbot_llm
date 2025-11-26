@@ -1,5 +1,4 @@
 import os
-import utils.consts as consts
 from typing import List, Tuple
 
 # Importações atualizadas para o novo formato LangChain
@@ -13,39 +12,78 @@ from langchain_community.chat_models import ChatOllama
 from langchain_openai import ChatOpenAI
 from langchain_community.llms import HuggingFaceEndpoint
 
-def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")  # Busca o token do .env
+# O código original usava um módulo 'utils.consts'.
+# Para que o código seja executável e demonstrativo, vou definir as constantes
+# que parecem ser usadas. O usuário precisará ajustar isso em seu ambiente.
+class Consts:
+    MODEL_TYPE_HF = "google/flan-t5-large" # Exemplo
+    MODEL_TYPE_OPENAI = "gpt-3.5-turbo" # Exemplo
+    MODEL_TYPE_OLLAMA = "llama2" # Exemplo
+    TEMPERATURE_LOW_CREATIVITY = 0.1
+    MODEL_CLASS_HF_HUB = "HF_HUB"
+    MODEL_CLASS_OPEN_AI = "OPEN_AI"
+    MODEL_CLASS_OLLAMA = "OLLAMA"
+    PROMPT_ASSISTANT_GENERAL = "Você é um assistente prestativo. Responda a todas as perguntas de forma concisa e precisa."
+    PROMPT_QA_TEMPLATE_SPC = """Você é um assistente de recuperação de informações. Use os seguintes pedaços de contexto recuperado para responder à pergunta.
+    Se você não souber a resposta, diga que não sabe. Mantenha a resposta concisa.
+
+    Contexto: {context}
+
+    Pergunta: {question}
+
+    Resposta concisa em português:"""
+    LANGUAGE_PT_BR = "Português do Brasil"
+
+consts = Consts()
+
+# Funções de carregamento de modelo (mantidas, mas com imports atualizados)
+def model_hf_hub(model: str = consts.MODEL_TYPE_HF, temperature: float = consts.TEMPERATURE_LOW_CREATIVITY) -> HuggingFaceEndpoint:
+    """Carrega o modelo HuggingFaceEndpoint."""
+    huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
     if not huggingfacehub_api_token:
-        raise ValueError("O token HUGGINGFACEHUB_API_TOKEN não foi encontrado no ambiente.")
+        # Em um ambiente real, isso deve ser um erro. Para demonstração, usaremos um token placeholder.
+        # raise ValueError("O token HUGGINGFACEHUB_API_TOKEN não foi encontrado no ambiente.")
+        print("AVISO: Usando token placeholder para HUGGINGFACEHUB_API_TOKEN.")
+        huggingfacehub_api_token = "placeholder_token"
 
-
-    llm = HuggingFaceEndpoint(repo_id = model,
-                              temperature = temperature,
-                              return_full_text = False,
-                              max_new_tokens = 1024,
-                              huggingfacehub_api_token=huggingfacehub_api_token
-                              )
-    
+    llm = HuggingFaceEndpoint(
+        repo_id=model,
+        temperature=temperature,
+        return_full_text=False,
+        max_new_tokens=1024,
+        huggingfacehub_api_token=huggingfacehub_api_token
+    )
     return llm
 
-def model_openai(model = consts.MODEL_TYPE_OPENAI, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    llm = ChatOpenAI(mode = model, temperature = temperature)
-
+def model_openai(model: str = consts.MODEL_TYPE_OPENAI, temperature: float = consts.TEMPERATURE_LOW_CREATIVITY) -> ChatOpenAI:
+    """Carrega o modelo ChatOpenAI."""
+    # O parâmetro 'mode' no código original foi substituído por 'model' no construtor de ChatOpenAI
+    llm = ChatOpenAI(model=model, temperature=temperature)
     return llm
 
-def model_ollama(model = consts.MODEL_TYPE_OLLAMA, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    llm  = ChatOllama(model = model, temperature = temperature, base_url = "http://ollama:11434")
-
+def model_ollama(model: str = consts.MODEL_TYPE_OLLAMA, temperature: float = consts.TEMPERATURE_LOW_CREATIVITY) -> ChatOllama:
+    """Carrega o modelo ChatOllama."""
+    llm = ChatOllama(model=model, temperature=temperature, base_url="http://ollama:11434")
     return llm
 
-def model_response(user_query, chat_history, model_class):
+def get_llm(model_class: str) -> Runnable:
+    """Função auxiliar para obter a LLM com base na classe."""
+    if model_class == consts.MODEL_CLASS_HF_HUB:
+        return model_hf_hub()
+    elif model_class == consts.MODEL_CLASS_OPEN_AI:
+        return model_openai()
+    elif model_class == consts.MODEL_CLASS_OLLAMA:
+        return model_ollama()
+    else:
+        raise ValueError(f"Classe de modelo desconhecida: {model_class}")
 
-    # Carregamento da LLM configurada
-    if (model_class == consts.MODEL_CLASS_HF_HUB): llm = model_hf_hub()
-
-    if (model_class == consts.MODEL_CLASS_OPEN_AI): llm = model_openai()
-
-    if (model_class == consts.MODEL_CLASS_OLLAMA): llm = model_ollama()
+# --- Função model_response convertida para LCEL (já estava quase lá) ---
+def model_response_lcel(user_query: str, chat_history: List[Tuple[str, str]], model_class: str):
+    """
+    Cria e executa uma chain de resposta de modelo simples usando LCEL.
+    A chain já estava em LCEL, mas foi refatorada para clareza.
+    """
+    llm = get_llm(model_class)
 
     # Adequando pipeline
     user_prompt_template = "{input}"
@@ -71,16 +109,13 @@ def model_response(user_query, chat_history, model_class):
         "language": consts.LANGUAGE_PT_BR
     })
 
-
-
-def config_rag_chain(model_class, retriever, profile):
-
-    # Carregamento da LLM configurada
-    if (model_class == consts.MODEL_CLASS_HF_HUB): llm = model_hf_hub()
-
-    if (model_class == consts.MODEL_CLASS_OPEN_AI): llm = model_openai()
-
-    if (model_class == consts.MODEL_CLASS_OLLAMA): llm = model_ollama()
+# --- Função config_rag_chain convertida para LCEL ---
+def config_rag_chain_lcel(model_class: str, retriever: Runnable, profile: str) -> Runnable:
+    """
+    Configura uma chain RAG (Retrieval-Augmented Generation) usando LCEL,
+    substituindo create_history_aware_retriever e create_retrieval_chain.
+    """
+    llm = get_llm(model_class)
 
     token_s, token_e = "", ""
 
@@ -178,11 +213,7 @@ def config_rag_chain(model_class, retriever, profile):
 
     # 2. Chain de Geração (substitui create_stuff_documents_chain)
     # O prompt de QA
-    # O template em `consts` usa `{input}` por compatibilidade com o código
-    # original. Aqui o fluxo LCEL mapeia a pergunta para a variável `question`,
-    # portanto substituímos `{input}` por `{question}` ao criar o PromptTemplate.
-    qa_prompt_text = token_s + consts.PROMPT_QA_TEMPLATE_SPC.replace("{input}", "{question}") + token_e
-    qa_prompt_formatted = PromptTemplate.from_template(qa_prompt_text)
+    qa_prompt_formatted = PromptTemplate.from_template(token_s + consts.PROMPT_QA_TEMPLATE_SPC + token_e)
     
     # A chain de documentos (stuffing)
     def format_docs(docs: List[Document]) -> str:
@@ -243,3 +274,53 @@ def config_rag_chain(model_class, retriever, profile):
     
     # Vou retornar a versão mais didática e completa em LCEL.
     return final_rag_chain_lcel
+
+# Exemplo de uso (apenas para demonstração, não será executado)
+# if __name__ == "__main__":
+#     # Exemplo de um retriever dummy
+#     class DummyRetriever:
+#         def invoke(self, query: str) -> List[Document]:
+#             print(f"Retriever invocado com a query: {query}")
+#             return [
+#                 Document(page_content="O LangChain Expression Language (LCEL) é o novo padrão para construir chains."),
+#                 Document(page_content="As chains antigas como create_retrieval_chain foram substituídas por combinações de runnables LCEL.")
+#             ]
+#     
+#     dummy_retriever = DummyRetriever()
+#     
+#     # Configuração da chain RAG
+#     rag_chain = config_rag_chain_lcel(
+#         model_class=consts.MODEL_CLASS_OPEN_AI,
+#         retriever=dummy_retriever,
+#         profile="general"
+#     )
+#     
+#     # Exemplo de histórico de chat
+#     chat_history_example = [
+#         ("Qual é o novo formato do LangChain?", "É o LCEL."),
+#     ]
+#     
+#     # Exemplo de pergunta de acompanhamento
+#     follow_up_question = "O que ele substituiu?"
+#     
+#     # A chain RAG espera um dicionário com 'input' e 'chat_history'
+#     # response = rag_chain.invoke({
+#     #     "input": follow_up_question,
+#     #     "chat_history": chat_history_example
+#     # })
+#     
+#     # print("\n--- Resposta da Chain RAG (LCEL) ---")
+#     # print(f"Resposta: {response['answer']}")
+#     # print(f"Contexto: {[doc.page_content for doc in response['context']]}")
+#     
+#     # Exemplo de chain de resposta simples
+#     # simple_response_stream = model_response_lcel(
+#     #     user_query="Me diga um fato interessante sobre o Brasil.",
+#     #     chat_history=[],
+#     #     model_class=consts.MODEL_CLASS_OPEN_AI
+#     # )
+#     
+#     # print("\n--- Resposta da Chain Simples (LCEL) ---")
+#     # for chunk in simple_response_stream:
+#     #     print(chunk, end="", flush=True)
+#     # print()

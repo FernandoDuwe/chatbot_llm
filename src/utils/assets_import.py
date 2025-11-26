@@ -56,7 +56,7 @@ def config_retriever(doc_list, profile):
 
     print(" arquivo: " + file_store)
 
-    vectorstore.save_local(file_store, embeddings)
+    vectorstore.save_local(file_store)
 
     print ("    configurando o retriever")
 
