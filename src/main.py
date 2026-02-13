@@ -12,6 +12,13 @@ from langchain_core.messages import AIMessage, HumanMessage # Mensagens no strea
 
 from dotenv import load_dotenv
 
+file_store = "assets/vectorstore_dev/db_faiss"
+
+print("CWD:", os.getcwd())
+print("file_store:", file_store)
+print("exists:", os.path.exists(os.path.join(file_store, "index.faiss")))
+
+
 load_dotenv()
 
 # Configuração do StreamLit

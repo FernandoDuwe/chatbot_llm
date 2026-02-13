@@ -17,8 +17,13 @@ def config_retriever(doc_list, profile):
 
         nome, extensao = os.path.splitext(file_path)
 
+        print(nome, " ", extensao)
+
         if (extensao == ".pdf"):
             loader = PyPDFLoader(file_path)
+
+        if (extensao == ".py"):
+            loader = TextLoader(file_path, encoding="latin-1")
 
         if (extensao == ".ytb"):
             loader = TextLoader(file_path)
@@ -70,10 +75,13 @@ def config_retriever(doc_list, profile):
 def config_retriever_from_index_file(profile):
     embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
 
+
     file_store = profiles.get_profile_by_index(profile)["faiss_db"]
 
     vectorstore = FAISS.load_local(file_store, embeddings,allow_dangerous_deserialization=True)
 
-    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 4})
+    # Usar 'similarity' é mais rápido que 'mmr'. Reduzir k para 2-3 documentos.
+    # Mudar de mmr (mais lento, mas diverso) para similarity (mais rápido)
+    retriever = vectorstore.as_retriever(search_type = "similarity", search_kwargs={'k': 2})
 
     return retriever

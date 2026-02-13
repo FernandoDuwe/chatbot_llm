@@ -13,7 +13,7 @@ from langchain_community.chat_models import ChatOllama
 from langchain_openai import ChatOpenAI
 from langchain_community.llms import HuggingFaceEndpoint
 
-def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
+def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_BALANCED):
     huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")  # Busca o token do .env
     if not huggingfacehub_api_token:
         raise ValueError("O token HUGGINGFACEHUB_API_TOKEN não foi encontrado no ambiente.")
@@ -28,13 +28,13 @@ def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_
     
     return llm
 
-def model_openai(model = consts.MODEL_TYPE_OPENAI, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
+def model_openai(model = consts.MODEL_TYPE_OPENAI, temperature = consts.TEMPERATURE_BALANCED):
     llm = ChatOpenAI(mode = model, temperature = temperature)
 
     return llm
 
-def model_ollama(model = consts.MODEL_TYPE_OLLAMA, temperature = consts.TEMPERATURE_LOW_CREATIVITY):
-    llm  = ChatOllama(model = model, temperature = temperature, base_url = "http://ollama:11434")
+def model_ollama(model = consts.MODEL_TYPE_OLLAMA, temperature = consts.TEMPERATURE_BALANCED):
+    llm  = ChatOllama(model = model, temperature = temperature, base_url = "http://localhost:11434")
 
     return llm
 
