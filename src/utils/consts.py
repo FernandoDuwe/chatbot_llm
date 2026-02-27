@@ -12,7 +12,7 @@ MODEL_CLASS_OLLAMA  = 2
 # Models
 MODEL_TYPE_HF     = "microsoft/phi-4"  #"meta-llama/Meta-Llama-3-8B-Instruct"
 MODEL_TYPE_OPENAI = "gpt-40-mini"
-MODEL_TYPE_OLLAMA = "qwen2.5-coder:0.5b"  # "llama3.2:3b" # "llama3.1:8b"
+MODEL_TYPE_OLLAMA = "llama3.1:8b" # "qwen2.5:0.5b" # "llama3.2:3b" # "llama3.1:8b"
 
 MODEL_TYPE_HF_JURIDICO = "DIACDE/NER_identificacao_termos_juridicos_complexos_TJGO"
 
@@ -22,6 +22,7 @@ EMBEDDING_FAST = "sentence-transformers/all-MiniLM-L6-v2"  # Alternativa mais r√
 
 # Temperature
 TEMPERATURE_LOW_CREATIVITY = 0.1 # temperatura baixa = baixa criatividade do modelo
+TEMPERATURE_LOW_BALANCED = 0.25 # temperatura equilibrada para melhor qualidade
 TEMPERATURE_BALANCED = 0.5 # temperatura equilibrada para melhor qualidade
 
 # Language

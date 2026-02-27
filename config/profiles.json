@@ -1,10 +1,10 @@
 {
     "profiles": [
         {
-            "name": "Desenvolvedor",
+            "name": "Desenvolvedor IronPython",
             "specific": false,
             "prompt": "",
-            "startup_message": "Olá, sou o seu assistente virtual desenvolvedor. Como posso lhe ajudar?",
+            "startup_message": "Sou o seu assistente virtual desenvolvedor. Como posso lhe ajudar?",
             "faiss_db": "./assets/vectorstore_dev/db_faiss",
             "files": [],
             "extensions": [".ytb", ".wbt", ".py", ".pdf"]

@@ -50,7 +50,7 @@ def config_retriever(doc_list, profile):
     print(" embedding...")
 
     # Embedding
-    embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_FAST)
+    embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
 
     print(" armazenando....")
 
@@ -66,14 +66,14 @@ def config_retriever(doc_list, profile):
     print ("    configurando o retriever")
 
     # Configuração do retriever
-    retriever = vectorstore.as_retriever(search_type = "similarity", search_kwargs={'k': 2, 'fetch_k': 7})
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3, 'fetch_k': 7})
 
     print ("    retriever feito")
 
     return retriever
 
 def config_retriever_from_index_file(profile):
-    embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_FAST)
+    embeddings = HuggingFaceEmbeddings(model_name = consts.EMBEDDING_BAAI)
 
 
     file_store = profiles.get_profile_by_index(profile)["faiss_db"]
@@ -82,6 +82,6 @@ def config_retriever_from_index_file(profile):
 
     # Usar 'similarity' é mais rápido que 'mmr'. Reduzir k para 2-3 documentos.
     # Mudar de mmr (mais lento, mas diverso) para similarity (mais rápido)
-    retriever = vectorstore.as_retriever(search_type = "similarity", search_kwargs={'k': 2})
+    retriever = vectorstore.as_retriever(search_type = "mmr", search_kwargs={'k': 3})
 
     return retriever

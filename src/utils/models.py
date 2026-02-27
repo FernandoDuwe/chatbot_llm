@@ -8,8 +8,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, Runnable
 from langchain_core.documents import Document
 
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_classic.chains import create_history_aware_retriever, create_retrieval_chain
+from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 
 # Importações de modelos
 from langchain_ollama import ChatOllama
@@ -25,7 +25,7 @@ def model_hf_hub(model = consts.MODEL_TYPE_HF, temperature = consts.TEMPERATURE_
     llm = HuggingFaceEndpoint(repo_id = model,
                               temperature = temperature,
                               return_full_text = False,
-                              max_new_tokens = const.MAX_NEW_TOKENS_MEDIUM,
+                              max_new_tokens = consts.MAX_NEW_TOKENS_LONG,
                               huggingfacehub_api_token=huggingfacehub_api_token
                               )
     
@@ -37,7 +37,7 @@ def model_openai(model = consts.MODEL_TYPE_OPENAI, temperature = consts.TEMPERAT
     return llm
 
 def model_ollama(model = consts.MODEL_TYPE_OLLAMA, temperature = consts.TEMPERATURE_BALANCED):
-    llm  = ChatOllama(model=model, temperature=temperature, top_p=consts.TOP_P, top_k=consts.TOP_K, base_url=consts.OLLAMA_PATH, num_predict=consts.MAX_NEW_TOKENS_MEDIUM)
+    llm  = ChatOllama(model=model, temperature=temperature, base_url=consts.OLLAMA_PATH)
 
     return llm
 
